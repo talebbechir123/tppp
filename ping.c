@@ -8,6 +8,8 @@ int main(int argc, char** argv) {
     MPI_Init(&argc, &argv);
     int rank;
     int world;
+    char hn[100];
+    gethostname( hn, 100 );
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &world);
     //exchange messge of size X with other processes
@@ -52,8 +54,8 @@ int main(int argc, char** argv) {
     MPI_Barrier(MPI_COMM_WORLD);
     time_end = MPI_Wtime();
     //get the time and processus number
-    printf("time: %f, rank: %d \n",time_end-time_start,rank);
-    printf("time of message: %f, rank: %d \n",time_of_message_end-time_of_message_start,rank);
+    printf("time: %f, rank: %d (sur la machine %s) \n",time_end-time_start,rank,hn);
+    printf("time of message: %f, rank: %d (sur la machine %s) \n",time_of_message_end-time_of_message_start,rank,hn);
   
     MPI_Finalize();
 }
